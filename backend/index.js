@@ -7,6 +7,8 @@ import connectDB from './config/db.js'
 
 dotenv.config()
 
+const jwtSecret = process.env.JWT_SECRET
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -14,6 +16,10 @@ connectDB()
 
 app.use(cors())
 app.use(express.json());
+app.use((req, res, next) => {
+  req.jwtSecret = jwtSecret;
+  next();
+});
 app.use('/api/', summaryRoute)
 app.use('/api/users/', userRoute)
 

@@ -39,8 +39,9 @@ export const registerUser = async (req, res) => {
                 id: user.id
             }
         }
+        const jwtSecret = req.jwtSecret;
 
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+        jwt.sign(payload, jwtSecret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
                 throw err
             }
@@ -91,8 +92,9 @@ export const loginUser = async (req, res) => {
                 id: user.id
             }
         }
+        const jwtSecret = req.jwtSecret;
 
-        jwt.sign(payload, process.env.JWT_SECRET, { 'expiresIn': '1h' }, (err, token) => {
+        jwt.sign(payload, jwtSecret, { 'expiresIn': '1h' }, (err, token) => {
             if (err) {
                 console.error("Error in JWT signing:", err.message)
                 return res.status(500).json({
